@@ -1,4 +1,4 @@
-package doomchit_2;
+package doom_chit_3;
 
 public class Main {
 
