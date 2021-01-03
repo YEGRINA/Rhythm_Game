@@ -1,4 +1,4 @@
-package doomchit_2;
+package doom_chit_3;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -22,7 +22,9 @@ public class DoomChit extends JFrame {
 		setVisible(true);
 		
 		introBackground = new ImageIcon(Main.class.getResource("../images/introBackground(title).png")).getImage();
-			
+		
+		Music introMusic = new Music("introMusic.mp3", true);
+		introMusic.start();
 	}
 	
 	public void paint(Graphics g) {
