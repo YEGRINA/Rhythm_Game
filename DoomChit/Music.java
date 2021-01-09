@@ -1,4 +1,4 @@
-package doom_chit_3;
+package doom_chit_4;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,7 +18,6 @@ public class Music extends Thread {
 		try {
 			this.isLoop = isLoop;
 			file = new File(Main.class.getResource("../music/"+name).toURI());
-//			file = new File("../music/"+name);
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 			player = new Player(bis);
