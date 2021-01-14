@@ -1,4 +1,4 @@
-package doom_chit_6;
+package doom_chit_7;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,9 +30,6 @@ public class DoomChit extends JFrame {
 	private ImageIcon rightButtonBasicImage = new ImageIcon(Main.class.getResource("../images/rightButtonBasic.png"));
 	private ImageIcon rightButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/rightButtonEntered.png"));
 	
-	private Image titleImage = new ImageIcon(Main.class.getResource("../images/clearMyHeadTitle.png")).getImage();
-	private Image selectedImage = new ImageIcon(Main.class.getResource("../images/clearMyHeadStart.png"))
-			.getImage();
 	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground.png"))
 			.getImage();
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
@@ -46,6 +44,13 @@ public class DoomChit extends JFrame {
 	
 	private boolean isMainScreen = false;
 	
+	ArrayList<Track> trackList = new ArrayList<Track>();
+	
+	private Image titleImage;
+	private Image selectedImage;
+	private Music selectedMusic;
+	private int nowSelected = 0;
+	
 	public DoomChit() {
 		setUndecorated(true);
 		setTitle("Doom Chit");
@@ -56,6 +61,13 @@ public class DoomChit extends JFrame {
 		setVisible(true);
 		setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
+		
+		Music introMusic = new Music("introMusic.mp3", true);
+		introMusic.start();
+		
+		trackList.add(new Track("clearMyHeadTitle.png", "clearMyHeadStart.png", "clearMyHeadGame.png", "clear my head selected.mp3", "ellis - clear my head.mp3"));
+		trackList.add(new Track("gravityTitle.png", "gravityStart.png", "gravityGame.png", "gravity selected.mp3", "diamond eyes - gravity.mp3"));
+		trackList.add(new Track("hurtsLikeThisTitle.png", "hurtsLikeThisStart.png", "hurtsLikeThisGame.png", "hurts like this selected.mp3", "emdi - hurts like this.mp3"));
 
 		exitButton.setBounds(1240, 0, 30, 30);
 		exitButton.setBorderPainted(false);
@@ -105,6 +117,8 @@ public class DoomChit extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonPressedMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonPressedMusic.start();
+				introMusic.close();
+				selectTrack(0);
 				startButton.setVisible(false);
 				quitButton.setVisible(false);
 				leftButton.setVisible(true);
@@ -165,7 +179,7 @@ public class DoomChit extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonPressedMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonPressedMusic.start();
-				// 왼쪽 버튼 이벤트
+				selectLeft();
 			}
 		});
 		add(leftButton);
@@ -190,7 +204,7 @@ public class DoomChit extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonPressedMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonPressedMusic.start();
-				// 오른쪽 버튼 이벤트
+				selectRight();
 			}
 		});
 		add(rightButton);
@@ -212,9 +226,6 @@ public class DoomChit extends JFrame {
 			}
 		});
 		add(menuBar);
-		
-		Music introMusic = new Music("introMusic.mp3", true);
-		introMusic.start();
 	}
 
 	public void paint(Graphics g) {
@@ -233,5 +244,30 @@ public class DoomChit extends JFrame {
 		paintComponents(g);
 		this.repaint();
 	}
+	
+	public void selectTrack(int nowSeleted) {
+		if(selectedMusic != null)
+			selectedMusic.close();
+		titleImage = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSeleted).getTitleImage())).getImage();
+		selectedImage = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSeleted).getStartImage())).getImage();
+		selectedMusic = new Music(trackList.get(nowSeleted).getStartMusic(), true);
+		selectedMusic.start();
+	}
 
+	public void selectLeft() {
+		if(nowSelected == 0)
+			nowSelected = trackList.size() - 1;
+		else
+			nowSelected--;
+		selectTrack(nowSelected);
+	}
+
+	public void selectRight() {
+		if(nowSelected == trackList.size() - 1)
+			nowSelected = 0;
+		else
+			nowSelected++;
+		selectTrack(nowSelected);
+	}
+	
 }
