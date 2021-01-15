@@ -1,4 +1,4 @@
-package doom_chit_7;
+package doom_chit_8;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -29,6 +29,10 @@ public class DoomChit extends JFrame {
 	private ImageIcon leftButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/leftButtonEntered.png"));
 	private ImageIcon rightButtonBasicImage = new ImageIcon(Main.class.getResource("../images/rightButtonBasic.png"));
 	private ImageIcon rightButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/rightButtonEntered.png"));
+	private ImageIcon easyButtonBasicImage = new ImageIcon(Main.class.getResource("../images/easyButtonBasic.png"));
+	private ImageIcon easyButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/easyButtonEntered.png"));
+	private ImageIcon hardButtonBasicImage = new ImageIcon(Main.class.getResource("../images/hardButtonBasic.png"));
+	private ImageIcon hardButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/hardButtonEntered.png"));
 	
 	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground.png"))
 			.getImage();
@@ -39,6 +43,8 @@ public class DoomChit extends JFrame {
 	private JButton quitButton = new JButton(quitButtonBasicImage);
 	private JButton leftButton = new JButton(leftButtonBasicImage);
 	private JButton rightButton = new JButton(rightButtonBasicImage);
+	private JButton easyButton = new JButton(easyButtonBasicImage);
+	private JButton hardButton = new JButton(hardButtonBasicImage);
 
 	private int mouseX, mouseY;
 	
@@ -123,6 +129,8 @@ public class DoomChit extends JFrame {
 				quitButton.setVisible(false);
 				leftButton.setVisible(true);
 				rightButton.setVisible(true);
+				easyButton.setVisible(true);
+				hardButton.setVisible(true);
 				background = new ImageIcon(Main.class.getResource("../images/mainBackground.png"))
 						.getImage();
 				isMainScreen = true;
@@ -209,6 +217,56 @@ public class DoomChit extends JFrame {
 		});
 		add(rightButton);
 		
+		easyButton.setVisible(false);
+		easyButton.setBounds(375, 580, 250, 67);
+		easyButton.setBorderPainted(false);
+		easyButton.setContentAreaFilled(false);
+		easyButton.setFocusPainted(false);
+		easyButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				easyButton.setIcon(easyButtonEnteredImage);
+				easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
+				buttonEnteredMusic.start();
+			}
+			public void mouseExited(MouseEvent e) {
+				easyButton.setIcon(easyButtonBasicImage);
+				easyButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+			public void mousePressed(MouseEvent e) {
+				Music buttonPressedMusic = new Music("buttonPressedMusic.mp3", false);
+				buttonPressedMusic.start();
+				gameStart(nowSelected, "easy");
+			}
+		});
+		add(easyButton);
+		
+		hardButton.setVisible(false);
+		hardButton.setBounds(655, 580, 250, 67);
+		hardButton.setBorderPainted(false);
+		hardButton.setContentAreaFilled(false);
+		hardButton.setFocusPainted(false);
+		hardButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				hardButton.setIcon(hardButtonEnteredImage);
+				hardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
+				buttonEnteredMusic.start();
+			}
+			public void mouseExited(MouseEvent e) {
+				hardButton.setIcon(hardButtonBasicImage);
+				hardButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+			public void mousePressed(MouseEvent e) {
+				Music buttonPressedMusic = new Music("buttonPressedMusic.mp3", false);
+				buttonPressedMusic.start();
+				gameStart(nowSelected, "hard");
+			}
+		});
+		add(hardButton);
+		
 		menuBar.setBounds(0, 0, 1280, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -268,6 +326,18 @@ public class DoomChit extends JFrame {
 		else
 			nowSelected++;
 		selectTrack(nowSelected);
+	}
+	
+	public void gameStart(int nowSelected, String difficulty) {
+		if(selectedMusic != null)
+			selectedMusic.close();
+		isMainScreen = false;
+		leftButton.setVisible(false);
+		rightButton.setVisible(false);
+		easyButton.setVisible(false);
+		hardButton.setVisible(false);
+		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
+				.getImage();
 	}
 	
 }
