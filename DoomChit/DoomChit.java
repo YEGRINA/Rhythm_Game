@@ -1,4 +1,4 @@
-package doom_chit_11;
+package doom_chit_12;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -65,7 +65,7 @@ public class DoomChit extends JFrame {
 	private Music introMusic = new Music("introMusic.mp3", true);
 	private int nowSelected = 0;
 	
-	public static Game game = new Game();
+	public static Game game;
 	
 	public DoomChit() {
 		setUndecorated(true);
@@ -82,9 +82,9 @@ public class DoomChit extends JFrame {
 		
 		introMusic.start();
 		
-		trackList.add(new Track("clearMyHeadTitle.png", "clearMyHeadStart.png", "clearMyHeadGame.png", "clear my head selected.mp3", "ellis - clear my head.mp3"));
-		trackList.add(new Track("gravityTitle.png", "gravityStart.png", "gravityGame.png", "gravity selected.mp3", "diamond eyes - gravity.mp3"));
-		trackList.add(new Track("hurtsLikeThisTitle.png", "hurtsLikeThisStart.png", "hurtsLikeThisGame.png", "hurts like this selected.mp3", "emdi - hurts like this.mp3"));
+		trackList.add(new Track("clearMyHeadTitle.png", "clearMyHeadStart.png", "clearMyHeadGame.png", "clear my head selected.mp3", "ellis - clear my head.mp3", "ellis - clear my head"));
+		trackList.add(new Track("gravityTitle.png", "gravityStart.png", "gravityGame.png", "gravity selected.mp3", "diamond eyes - gravity.mp3", "diamond eyes - gravity"));
+		trackList.add(new Track("hurtsLikeThisTitle.png", "hurtsLikeThisStart.png", "hurtsLikeThisGame.png", "hurts like this selected.mp3", "emdi - hurts like this.mp3", "emdi - hurts like this"));
 
 		exitButton.setBounds(1240, 0, 30, 30);
 		exitButton.setBorderPainted(false);
@@ -238,7 +238,7 @@ public class DoomChit extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonPressedMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonPressedMusic.start();
-				gameStart(nowSelected, "easy");
+				gameStart(nowSelected, "EASY");
 			}
 		});
 		add(easyButton);
@@ -263,7 +263,7 @@ public class DoomChit extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonPressedMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonPressedMusic.start();
-				gameStart(nowSelected, "hard");
+				gameStart(nowSelected, "HARD");
 			}
 		});
 		add(hardButton);
@@ -365,11 +365,11 @@ public class DoomChit extends JFrame {
 		rightButton.setVisible(false);
 		easyButton.setVisible(false);
 		hardButton.setVisible(false);
-		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
-				.getImage();
+		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage())).getImage();
 		backButton.setVisible(true);
 		isGameScreen = true;
 		setFocusable(true);
+		game = new Game(trackList.get(nowSelected).getTitleName(), difficulty, trackList.get(nowSelected).getGameMusic());
 	}
 	
 	public void backMain() {
@@ -383,6 +383,7 @@ public class DoomChit extends JFrame {
 		backButton.setVisible(false);
 		selectTrack(nowSelected);
 		isGameScreen = false;
+		game.close();
 	}
 	
 	public void enterMain() {
