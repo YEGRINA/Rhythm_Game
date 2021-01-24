@@ -1,4 +1,4 @@
-package doom_chit_11;
+package doom_chit_12;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,30 +10,31 @@ import javax.swing.ImageIcon;
 
 public class Game extends Thread {
 
-	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png"))
-			.getImage();
-	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png"))
-			.getImage();
-	private Image noteBasicImage = new ImageIcon(Main.class.getResource("../images/noteBasic.png"))
-			.getImage();
-	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png"))
-			.getImage();
-	private Image noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
-	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
-	private Image noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
-	private Image noteRouteSpace1Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
-	private Image noteRouteSpace2Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
-	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
-	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
-	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
-			.getImage();
+	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage();
+	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage();
+	private Image noteBasicImage = new ImageIcon(Main.class.getResource("../images/noteBasic.png")).getImage();
+	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage();
+	private Image noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image noteRouteSpace1Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image noteRouteSpace2Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	
+	private String titleName;
+	private String difficulty;
+	private String musicTitle;
+	private Music gameMusic;
+	
+	public Game(String titleName, String difficulty, String musicTitle) {
+		this.titleName = titleName;
+		this.difficulty = difficulty;
+		this.musicTitle = musicTitle;
+		gameMusic = new Music(this.musicTitle, false);
+		gameMusic.start();
+	}
 	
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(noteRouteSImage, 228, 30, null);
@@ -65,8 +66,8 @@ public class Game extends Thread {
 		g.setColor(Color.white);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.setFont(new Font("Arial", Font.BOLD, 30));
-		g.drawString("ellis - clear my head", 20, 702);
-		g.drawString("EASY", 1190, 702);
+		g.drawString(titleName, 20, 702);
+		g.drawString(difficulty, 1180, 702);
 		g.setFont(new Font("Arial", Font.PLAIN, 30));
 		g.setColor(Color.DARK_GRAY);
 		g.drawString("S", 270, 609);
@@ -78,7 +79,7 @@ public class Game extends Thread {
 		g.drawString("L", 993, 609);
 		g.setColor(Color.LIGHT_GRAY);
 		g.setFont(new Font("Elephant", Font.BOLD, 30));
-		g.drawString("000000", 565, 702);	
+		g.drawString("000000", 565, 702);
 	}
 	
 	public void pressS() {
@@ -136,6 +137,10 @@ public class Game extends Thread {
 	@Override
 	public void run() {
 		
+	}
+	public void close() {
+		gameMusic.close();
+		this.interrupt();
 	}
 	
 }
