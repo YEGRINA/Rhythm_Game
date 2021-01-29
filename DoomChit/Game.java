@@ -1,4 +1,4 @@
-package doom_chit_13;
+package doom_chit_14;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -30,14 +30,11 @@ public class Game extends Thread {
 	
 	ArrayList<Note> noteList = new ArrayList<Note>();
 	
-	
 	public Game(String titleName, String difficulty, String musicTitle) {
 		this.titleName = titleName;
 		this.difficulty = difficulty;
 		this.musicTitle = musicTitle;
 		gameMusic = new Music(this.musicTitle, false);
-		gameMusic.start();
-		dropNotes(titleName);
 	}
 	
 	public void screenDraw(Graphics2D g) {
@@ -136,16 +133,75 @@ public class Game extends Thread {
 	
 	@Override
 	public void run() {
-		
+		dropNotes();
 	}
 	public void close() {
 		gameMusic.close();
 		this.interrupt();
 	}
 	
-	public void dropNotes(String titleName) {
-		Note note = new Note(228, "short");
-		note.start();
-		noteList.add(note);
+	public void dropNotes() {
+		Beat[] beats = null;
+		if(titleName.equals("diamond eyes - gravity")) {
+			int startTime = 1500 - Main.REACH_TIME * 1000;
+			int gap = 250;
+			beats = new Beat[] {
+					new Beat(startTime, "S"),
+					new Beat(startTime + gap*2, "D"),
+					new Beat(startTime + gap*4, "F"),
+					new Beat(startTime + gap*8, "Space"),
+					new Beat(startTime + gap*10, "L"),
+					new Beat(startTime + gap*12, "K"),
+					new Beat(startTime + gap*14, "J"),
+					new Beat(startTime + gap*20, "Space"),
+					new Beat(startTime + gap*26, "D"),
+					new Beat(startTime + gap*28, "F"),
+					new Beat(startTime + gap*30, "S"),
+					new Beat(startTime + gap*33, "J"),
+					new Beat(startTime + gap*35, "L"),
+					new Beat(startTime + gap*36, "D"),
+					new Beat(startTime + gap*39, "K"),
+					new Beat(startTime + gap*41, "K"),
+					new Beat(startTime + gap*43, "F"),
+					new Beat(startTime + gap*43, "J"),
+					new Beat(startTime + gap*44, "D"),
+					new Beat(startTime + gap*44, "K"),
+					new Beat(startTime + gap*45, "S"),
+					new Beat(startTime + gap*45, "L"),
+					
+					
+			};
+		}
+		else if(titleName.equals("ellis - clear my head")) {
+			int startTime = 1000 - Main.REACH_TIME * 1000;
+			beats = new Beat[] {
+					
+			};
+		}
+		else if(titleName.equals("emdi - hurts like this")) {
+			int startTime = 1000 - Main.REACH_TIME * 1000;
+			beats = new Beat[] {
+					
+			};
+		}
+		int i = 0;
+		gameMusic.start();
+		while(i < beats.length && !isInterrupted()) {
+			boolean dropped = false;
+			if(beats[i].getTime() <= gameMusic.getTime()) {
+				Note note = new Note(beats[i].getNoteName());
+				note.start();
+				noteList.add(note);
+				i++;
+				dropped = true;
+			}
+			if(!dropped) {
+				try {
+					Thread.sleep(5);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
