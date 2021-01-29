@@ -1,4 +1,4 @@
-package doom_chit_12;
+package doom_chit_14;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -68,6 +68,10 @@ public class DoomChit extends JFrame {
 	public static Game game;
 	
 	public DoomChit() {
+		trackList.add(new Track("gravityTitle.png", "gravityStart.png", "gravityGame.png", "gravity selected.mp3", "diamond eyes - gravity.mp3", "diamond eyes - gravity"));
+		trackList.add(new Track("clearMyHeadTitle.png", "clearMyHeadStart.png", "clearMyHeadGame.png", "clear my head selected.mp3", "ellis - clear my head.mp3", "ellis - clear my head"));
+		trackList.add(new Track("hurtsLikeThisTitle.png", "hurtsLikeThisStart.png", "hurtsLikeThisGame.png", "hurts like this selected.mp3", "emdi - hurts like this.mp3", "emdi - hurts like this"));
+
 		setUndecorated(true);
 		setTitle("Doom Chit");
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -81,10 +85,6 @@ public class DoomChit extends JFrame {
 		addKeyListener(new KeyListener());
 		
 		introMusic.start();
-		
-		trackList.add(new Track("clearMyHeadTitle.png", "clearMyHeadStart.png", "clearMyHeadGame.png", "clear my head selected.mp3", "ellis - clear my head.mp3", "ellis - clear my head"));
-		trackList.add(new Track("gravityTitle.png", "gravityStart.png", "gravityGame.png", "gravity selected.mp3", "diamond eyes - gravity.mp3", "diamond eyes - gravity"));
-		trackList.add(new Track("hurtsLikeThisTitle.png", "hurtsLikeThisStart.png", "hurtsLikeThisGame.png", "hurts like this selected.mp3", "emdi - hurts like this.mp3", "emdi - hurts like this"));
 
 		exitButton.setBounds(1240, 0, 30, 30);
 		exitButton.setBorderPainted(false);
@@ -329,6 +329,11 @@ public class DoomChit extends JFrame {
 			game.screenDraw(g);
 		}
 		paintComponents(g);
+		try {
+			Thread.sleep(5);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		this.repaint();
 	}
 	
@@ -368,8 +373,9 @@ public class DoomChit extends JFrame {
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage())).getImage();
 		backButton.setVisible(true);
 		isGameScreen = true;
-		setFocusable(true);
 		game = new Game(trackList.get(nowSelected).getTitleName(), difficulty, trackList.get(nowSelected).getGameMusic());
+		game.start();
+		setFocusable(true);
 	}
 	
 	public void backMain() {
