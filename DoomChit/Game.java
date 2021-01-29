@@ -1,4 +1,4 @@
-package doom_chit_14;
+package doom_chit_15;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -142,34 +142,58 @@ public class Game extends Thread {
 	
 	public void dropNotes() {
 		Beat[] beats = null;
-		if(titleName.equals("diamond eyes - gravity")) {
+		if(titleName.equals("diamond eyes - gravity") && difficulty.equals("HARD")) {
 			int startTime = 1500 - Main.REACH_TIME * 1000;
-			int gap = 250;
+			int gap = 125;
 			beats = new Beat[] {
-					new Beat(startTime, "S"),
+					new Beat(startTime + gap, "S"),
 					new Beat(startTime + gap*2, "D"),
 					new Beat(startTime + gap*4, "F"),
-					new Beat(startTime + gap*8, "Space"),
-					new Beat(startTime + gap*10, "L"),
-					new Beat(startTime + gap*12, "K"),
-					new Beat(startTime + gap*14, "J"),
-					new Beat(startTime + gap*20, "Space"),
-					new Beat(startTime + gap*26, "D"),
-					new Beat(startTime + gap*28, "F"),
-					new Beat(startTime + gap*30, "S"),
-					new Beat(startTime + gap*33, "J"),
+					new Beat(startTime + gap*8, "L"),
+					new Beat(startTime + gap*9, "K"),
+					new Beat(startTime + gap*11, "J"),
+					new Beat(startTime + gap*13, "K"),
+					new Beat(startTime + gap*15, "D"),
+					new Beat(startTime + gap*17, "L"),
+					new Beat(startTime + gap*19, "S"),
+					new Beat(startTime + gap*21, "K"),
+					new Beat(startTime + gap*23, "D"),
+					new Beat(startTime + gap*25, "F"),
+					new Beat(startTime + gap*26, "J"),
+					new Beat(startTime + gap*27, "D"),
+					new Beat(startTime + gap*28, "K"),
+					new Beat(startTime + gap*29, "S"),
+					new Beat(startTime + gap*30, "L"),
+					new Beat(startTime + gap*33, "D"),
+					new Beat(startTime + gap*33, "K"),
+					new Beat(startTime + gap*35, "S"),
 					new Beat(startTime + gap*35, "L"),
-					new Beat(startTime + gap*36, "D"),
-					new Beat(startTime + gap*39, "K"),
-					new Beat(startTime + gap*41, "K"),
-					new Beat(startTime + gap*43, "F"),
-					new Beat(startTime + gap*43, "J"),
-					new Beat(startTime + gap*44, "D"),
-					new Beat(startTime + gap*44, "K"),
-					new Beat(startTime + gap*45, "S"),
-					new Beat(startTime + gap*45, "L"),
-					
-					
+					new Beat(startTime + gap*40, "Space"),
+					new Beat(startTime + gap*53, "F"),
+					new Beat(startTime + gap*54, "F"),
+					new Beat(startTime + gap*56, "L"),
+					new Beat(startTime + gap*58, "K"),
+					new Beat(startTime + gap*59, "K"),
+					new Beat(startTime + gap*61, "D"),
+					new Beat(startTime + gap*65, "F"),
+					new Beat(startTime + gap*66, "D"),
+					new Beat(startTime + gap*67, "S"),
+					new Beat(startTime + gap*72, "J"),
+					new Beat(startTime + gap*73, "K"),
+					new Beat(startTime + gap*74, "L"),
+					new Beat(startTime + gap*78, "S"),
+					new Beat(startTime + gap*78, "D"),
+					new Beat(startTime + gap*81, "Space"),
+					new Beat(startTime + gap*84, "K"),
+					new Beat(startTime + gap*84, "L"),
+					new Beat(startTime + gap*87, "Space"),
+					new Beat(startTime + gap*90, "Space"),
+					new Beat(startTime + gap*91, "F"),
+					new Beat(startTime + gap*91, "J"),
+					new Beat(startTime + gap*92, "D"),
+					new Beat(startTime + gap*92, "K"),
+					new Beat(startTime + gap*93, "S"),
+					new Beat(startTime + gap*93, "L"),
 			};
 		}
 		else if(titleName.equals("ellis - clear my head")) {
