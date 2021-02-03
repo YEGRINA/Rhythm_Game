@@ -1,4 +1,4 @@
-package doom_chit_4;
+package doom_chit_16;
 
 import java.io.BufferedInputStream;
 import java.io.File;
